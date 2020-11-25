@@ -4,6 +4,7 @@ function SheetMenu(sheetName, ...settings){
 }
 SheetMenu.prototype = {
     structure: undefined,
+    _sheet: undefined,
 
     getStructure: function(){
         var structure = {};
@@ -15,6 +16,19 @@ SheetMenu.prototype = {
         })
 
         return structure;
+    },
+
+    get sheet(){
+        if(this._sheet !== undefined)
+            return this._sheet;
+
+        var ss = SpreadsheetApp.getActiveSpreadsheet();
+        this._sheet = ss.getSheetByName(this.sheetName);
+
+        if(!this._sheet)
+            this._sheet = ss.insertSheet(this.sheetName);
+
+        return this._sheet;
     }
 }
 
