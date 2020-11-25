@@ -2,7 +2,7 @@ function SheetMenu(options, ...settings){
     this.options = {
         sheetName: "Settings",
         sheetTitle: "Settings Menu",
-        settingSpacing: 0,
+        settingSpacing: 1,
         ...options
     };
 
