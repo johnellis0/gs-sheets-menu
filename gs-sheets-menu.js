@@ -1,5 +1,11 @@
-function SheetMenu(sheetName, ...settings){
-    this.sheetName = sheetName;
+function SheetMenu(options, ...settings){
+    this.options = {
+        sheetName: "Settings",
+        sheetTitle: "Settings Menu",
+        settingSpacing: 0,
+        ...options
+    };
+
     this.settings = settings;
 }
 SheetMenu.prototype = {
@@ -11,11 +17,12 @@ SheetMenu.prototype = {
             return this._structure;
 
         this._structure = {};
-        var row = 1;
+        var row = 2 + this.options.settingSpacing; // Skip title row
 
         this.settings.forEach((setting) => {
             this._structure[setting.name] = row;
             row += setting.getSize().rows;
+            row += this.options.settingSpacing;
         })
 
         return this._structure;
@@ -27,14 +34,18 @@ SheetMenu.prototype = {
 
         var ss = SpreadsheetApp.getActiveSpreadsheet();
         this._sheet = ss.getSheetByName(this.sheetName);
+        this._sheet = ss.getSheetByName(this.options.sheetName);
 
         if(!this._sheet)
             this._sheet = ss.insertSheet(this.sheetName);
+            this._sheet = ss.insertSheet(this.options.sheetName);
 
         return this._sheet;
     },
 
     draw: function(){
+        this.sheet.getRange(1,1).setValue(this.options.sheetTitle);
+
         this.settings.forEach((setting) => {
             var range = this.sheet.getRange(this.structure[setting.name], 1, 1, setting.getSize().columns);
             range.setValues([setting.getValues()]);
