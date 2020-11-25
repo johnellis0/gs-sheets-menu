@@ -3,19 +3,22 @@ function SheetMenu(sheetName, ...settings){
     this.settings = settings;
 }
 SheetMenu.prototype = {
-    structure: undefined,
+    _structure: undefined,
     _sheet: undefined,
 
-    getStructure: function(){
-        var structure = {};
+    get structure(){
+        if(this._structure !== undefined)
+            return this._structure;
+
+        this._structure = {};
         var row = 1;
 
         this.settings.forEach((setting) => {
-            structure[setting.name] = row;
+            this._structure[setting.name] = row;
             row += setting.getSize().rows;
         })
 
-        return structure;
+        return this._structure;
     },
 
     get sheet(){
