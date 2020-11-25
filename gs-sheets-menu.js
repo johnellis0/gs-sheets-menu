@@ -104,7 +104,7 @@ Setting.prototype = {
     }
 };
 
-function TextSetting(name, defaultValue, description){
+function TextSetting(name, defaultValue, description=""){
     if(!(this instanceof TextSetting))
         return new TextSetting(...arguments);
 
@@ -112,7 +112,7 @@ function TextSetting(name, defaultValue, description){
 }
 TextSetting.prototype = Object.create(Setting.prototype);
 
-function CheckboxSetting(name, defaultValue, description){
+function CheckboxSetting(name, defaultValue=false, description=""){
     if(!(this instanceof CheckboxSetting))
         return new CheckboxSetting(...arguments);
 
