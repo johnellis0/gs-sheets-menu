@@ -125,6 +125,26 @@ CheckboxSetting.prototype.draw = function(range){
     range.getCell(1,2).insertCheckboxes();
 };
 
+function DropdownSetting(name, possibleValues, description=""){
+    if(!(this instanceof DropdownSetting))
+        return new DropdownSetting(...arguments);
+
+    Setting.call(this, name, possibleValues[0], description, SettingTypes.BOOL);
+    this.possibleValues = possibleValues;
+}
+DropdownSetting.prototype = Object.create(Setting.prototype);
+
+DropdownSetting.prototype.draw = function(range){
+    range.setValues([this.getDefaultValues()]);
+
+    var rule = SpreadsheetApp.newDataValidation()
+                .requireValueInList(this.possibleValues)
+                .setAllowInvalid(false)
+                .build();
+
+    range.getCell(1,2).setDataValidation(rule);
+};
+
 /**
  * Enum for settings types. Used to determine how to display on menu / validate etc.
  * @readonly
