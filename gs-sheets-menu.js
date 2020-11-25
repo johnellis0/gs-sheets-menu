@@ -39,14 +39,8 @@ SheetMenu.prototype = {
             var range = this.sheet.getRange(this.structure[setting.name], 1, 1, setting.getSize().columns);
             range.setValues([setting.getValues()]);
         })
-    }
-}
 
-function TextSetting(name, defaultValue, description){
-    if(!(this instanceof  TextSetting))
-        return new TextSetting(name, defaultValue, description);
 
-    Setting.call(this, name, defaultValue, description, SettingTypes.TEXT);
 }
 
 function Setting(name, defaultValue, description, settingType){
@@ -73,6 +67,11 @@ Setting.prototype = {
         return [this.name, this._value, this.description];
     }
 };
+
+function TextSetting(name, defaultValue, description){
+    Setting.call(this, name, defaultValue, description, SettingTypes.TEXT);
+}
+TextSetting.prototype = Object.create(Setting.prototype);
 
 /**
  * Enum for settings types. Used to determine how to display on menu / validate etc.
