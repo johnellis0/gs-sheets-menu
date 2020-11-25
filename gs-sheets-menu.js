@@ -74,7 +74,7 @@ SheetMenu.prototype = {
 
 function Setting(name, defaultValue, description, settingType){
     this.name = name;
-    this.defaultValue = name;
+    this.defaultValue = defaultValue;
     this.description = description;
     this.settingType = settingType;
 }
