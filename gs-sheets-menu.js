@@ -1,3 +1,10 @@
+function SheetMenu(sheetName, ...settings){
+    this.sheetName = sheetName;
+    this.settings = settings;
+}
+SheetMenu.prototype = {
+}
+
 function Setting(name, defaultValue, description, settingType){
     this.name = name;
     this.defaultValue = name;
