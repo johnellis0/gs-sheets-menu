@@ -32,6 +32,13 @@ SheetMenu.prototype = {
             this._sheet = ss.insertSheet(this.sheetName);
 
         return this._sheet;
+    },
+
+    draw: function(){
+        this.settings.forEach((setting) => {
+            var range = this.sheet.getRange(this.structure[setting.name], 1, 1, setting.getSize().columns);
+            range.setValues([setting.getValues()]);
+        })
     }
 }
 
@@ -60,6 +67,10 @@ Setting.prototype = {
         var columns = 3;
 
         return {rows, columns};
+    },
+
+    getValues: function(){
+        return [this.name, this._value, this.description];
     }
 };
 
