@@ -39,6 +39,13 @@ SheetMenu.prototype = {
             var range = this.sheet.getRange(this.structure[setting.name], 1, 1, setting.getSize().columns);
             range.setValues([setting.getValues()]);
         })
+    },
+
+    get: function(settingName){
+        // var setting = this.settings.find(s => s.name === settingName);
+        var row = this.structure[settingName];
+        return this.sheet.getRange(row, 2).getValue();
+    },
 
 
 }
