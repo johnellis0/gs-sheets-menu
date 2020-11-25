@@ -1,4 +1,7 @@
 function SheetMenu(options, ...settings){
+    if(!(this instanceof SheetMenu))
+        return new SheetMenu(options, ...settings);
+
     this.options = {
         sheetName: "Settings",
         sheetTitle: "Settings Menu",
@@ -98,6 +101,9 @@ Setting.prototype = {
 };
 
 function TextSetting(name, defaultValue, description){
+    if(!(this instanceof TextSetting))
+        return new TextSetting(...arguments);
+
     Setting.call(this, name, defaultValue, description, SettingTypes.TEXT);
 }
 TextSetting.prototype = Object.create(Setting.prototype);
