@@ -51,7 +51,7 @@ SheetMenu.prototype = {
 
         this.settings.forEach((setting) => {
             var range = this.sheet.getRange(this.structure[setting.name], 1, 1, setting.getSize().columns);
-            range.setValues([setting.getDefaultValues()]);
+            setting.draw(range);
             range.getCell(1,2).setBackground("white").setBorder(true, true, true, true, null, null);
         })
 
@@ -97,6 +97,10 @@ Setting.prototype = {
 
     getDefaultValues: function(){
         return [this.name, this.getDefault(), this.description];
+    },
+
+    draw: function(range){
+        range.setValues([this.getDefaultValues()]);
     }
 };
 
