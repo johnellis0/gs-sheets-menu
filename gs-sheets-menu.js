@@ -112,6 +112,19 @@ function TextSetting(name, defaultValue, description){
 }
 TextSetting.prototype = Object.create(Setting.prototype);
 
+function CheckboxSetting(name, defaultValue, description){
+    if(!(this instanceof CheckboxSetting))
+        return new CheckboxSetting(...arguments);
+
+    Setting.call(this, name, defaultValue, description, SettingTypes.BOOL);
+}
+CheckboxSetting.prototype = Object.create(Setting.prototype);
+
+CheckboxSetting.prototype.draw = function(range){
+        range.setValues([this.getDefaultValues()]);
+        range.getCell(1,2).insertCheckboxes();
+};
+
 /**
  * Enum for settings types. Used to determine how to display on menu / validate etc.
  * @readonly
