@@ -17,7 +17,7 @@ SheetMenu.prototype = {
             return this._structure;
 
         this._structure = {};
-        var row = 2 + this.options.settingSpacing; // Skip title row
+        var row = 2; // Skip title row
 
         this.settings.forEach((setting) => {
             this._structure[setting.name] = row;
@@ -33,23 +33,32 @@ SheetMenu.prototype = {
             return this._sheet;
 
         var ss = SpreadsheetApp.getActiveSpreadsheet();
-        this._sheet = ss.getSheetByName(this.sheetName);
         this._sheet = ss.getSheetByName(this.options.sheetName);
 
         if(!this._sheet)
-            this._sheet = ss.insertSheet(this.sheetName);
             this._sheet = ss.insertSheet(this.options.sheetName);
 
         return this._sheet;
     },
 
     draw: function(){
-        this.sheet.getRange(1,1).setValue(this.options.sheetTitle);
+        this.sheet.getRange(1,1,1,3).merge().setValue(this.options.sheetTitle).setHorizontalAlignment("center");
+
+        this.sheet.getRange(1,1, this.sheet.getMaxRows(), this.sheet.getMaxColumns()).setBackground("lightgrey");
 
         this.settings.forEach((setting) => {
             var range = this.sheet.getRange(this.structure[setting.name], 1, 1, setting.getSize().columns);
             range.setValues([setting.getValues()]);
+            range.getCell(1,2).setBackground("white").setBorder(true, true, true, true, null, null);
         })
+
+        var rows = this.sheet.getLastRow();
+        var columns = this.sheet.getLastColumn()
+
+        this.sheet.deleteRows(rows+1, this.sheet.getMaxRows()-rows);
+        this.sheet.deleteColumns(columns+1, this.sheet.getMaxColumns()-columns);
+
+        this.sheet.getDataRange().protect().setWarningOnly(true);
     },
 
     get: function(settingName){
@@ -58,7 +67,9 @@ SheetMenu.prototype = {
         return this.sheet.getRange(row, 2).getValue();
     },
 
+    set: function(settingName, value){
 
+    }
 }
 
 function Setting(name, defaultValue, description, settingType){
