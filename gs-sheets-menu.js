@@ -3,6 +3,21 @@ function SheetMenu(sheetName, ...settings){
     this.settings = settings;
 }
 SheetMenu.prototype = {
+    structure: undefined,
+
+    getStructure: function(){
+        var structure = {};
+        var row = 1;
+
+        this.settings.forEach((setting) => {
+            structure[setting.name] = row;
+            row += setting.getSize().rows;
+        })
+
+        return structure;
+    }
+}
+
 }
 
 function Setting(name, defaultValue, description, settingType){
@@ -17,6 +32,13 @@ Setting.prototype = {
     getDefault: function(){
         return this.defaultValue;
     },
+
+    getSize: function(){
+        var rows = 1;
+        var columns = 3;
+
+        return {rows, columns};
+    }
 };
 
 /**
