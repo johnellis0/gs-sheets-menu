@@ -18,6 +18,11 @@ SheetMenu.prototype = {
     }
 }
 
+function TextSetting(name, defaultValue, description){
+    if(!(this instanceof  TextSetting))
+        return new TextSetting(name, defaultValue, description);
+
+    Setting.call(this, name, defaultValue, description, SettingTypes.TEXT);
 }
 
 function Setting(name, defaultValue, description, settingType){
