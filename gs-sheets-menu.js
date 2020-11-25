@@ -121,8 +121,8 @@ function CheckboxSetting(name, defaultValue=false, description=""){
 CheckboxSetting.prototype = Object.create(Setting.prototype);
 
 CheckboxSetting.prototype.draw = function(range){
-        range.setValues([this.getDefaultValues()]);
-        range.getCell(1,2).insertCheckboxes();
+    range.setValues([this.getDefaultValues()]);
+    range.getCell(1,2).insertCheckboxes();
 };
 
 /**
