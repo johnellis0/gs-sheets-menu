@@ -10,6 +10,9 @@ function SheetMenu(options, ...settings){
     };
 
     this.settings = settings;
+
+    if(!SpreadsheetApp.getActiveSpreadsheet().getSheets().includes(this.options.sheetName))
+        this.draw();
 }
 SheetMenu.prototype = {
     _structure: undefined,
