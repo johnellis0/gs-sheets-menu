@@ -45,7 +45,11 @@ SheetMenu.prototype = {
     },
 
     draw: function(){
-        this.sheet.getRange(1,1,1,3).merge().setValue(this.options.sheetTitle).setHorizontalAlignment("center");
+        this.sheet.getRange(1,1,1,3).merge()
+            .setValue(this.options.sheetTitle)
+            .setFontSize(16)
+            .setFontWeight("bold")
+            .setHorizontalAlignment("center");
 
         this.sheet.getRange(1,1, this.sheet.getMaxRows(), this.sheet.getMaxColumns()).setBackground("lightgrey");
 
@@ -62,6 +66,9 @@ SheetMenu.prototype = {
         this.sheet.deleteColumns(columns+1, this.sheet.getMaxColumns()-columns);
 
         this.sheet.getDataRange().protect().setWarningOnly(true);
+
+        this.sheet.autoResizeColumns(1, this.sheet.getMaxColumns());
+        this.sheet.setColumnWidth(2, this.sheet.getColumnWidth(2) + 25);
     },
 
     get: function(settingName){
