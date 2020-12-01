@@ -1,3 +1,11 @@
+/* Google Scripts Sheets Form Utilities
+ * By John Ellis
+ * https://github.com/johnellis0/gs-sheets-menu
+ * Released under the MIT License
+ *
+ * Google Apps Script for Google Sheets that adds the ability to create a sheet based settings menu.
+ */
+
 function SheetMenu(options, ...settings){
     if(!(this instanceof SheetMenu))
         return new SheetMenu(options, ...settings);
