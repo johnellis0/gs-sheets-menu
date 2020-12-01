@@ -115,3 +115,8 @@ name | String | Name of setting
 possibleValues | String[] | Array of available values. The first value in the array will be the default value
 description | String | Description to display alongside setting in third column of menu sheet
 
+## Authors
+ - John Ellis - [GitHub](https://github.com/johnellis0) / [Portfolio](https://johnellis.dev)
+
+## License
+Released under [MIT](/LICENSE)
