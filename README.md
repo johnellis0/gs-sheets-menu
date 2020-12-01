@@ -1,4 +1,5 @@
 # Google Scripts Spreadsheet Menu
+Google Apps Script for Google Sheets that adds the ability to create a sheet based settings menu.
 
 Allows settings to be stored on the spreadsheet so that they are accessible to running scripts but also editable by users without needing to edit any code in the scripts editor.
 
