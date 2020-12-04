@@ -1,2 +1,6 @@
 .idea
 test.js
+
+# clasp
+.clasp.json
+src/appsscript.json
