@@ -38,10 +38,6 @@ var foo = menu.get("Setting 1"); // == "Value 1"
 var bar = menu.get("Setting 3"); // == false
 ```
 
-## First run & menu creation
-
-The menu sheet will be created if it does not already exist the first time a `SettingMenu` object is instantiated.
-
 ## Using ENUMs for setting names
 
 The names of the settings you want to appear on the menu may not be convenient to use in the code.
@@ -61,6 +57,12 @@ const menu = SheetMenu(options,
 
 var value = menu.get(settings.FOO);
 ```
+
+## First run & menu creation
+
+The menu sheet will be created if it does not already exist the first time a `SettingMenu` object is instantiated.
+
+If you want to create the menu before running any code you will need to create an empty macro you can run from in the spreadsheet itself.
 
 # API Reference
 {{>main}}
