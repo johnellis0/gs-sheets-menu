@@ -1,0 +1,72 @@
+# Google Scripts Spreadsheet Menu
+Google Apps Script for Google Sheets that adds the ability to create a sheet based settings menu.
+
+Allows settings to be stored on the spreadsheet so that they are accessible to running scripts but also editable by users without needing to edit any code in the scripts editor.
+
+Many Google Scripts will depend on options that may need to be changed over the lifetime of a script. 
+Many users will not be programmers and expecting them to use the script editor to edit options/settings is not feasible.
+Using this project to create a settings menu on a sheet allows for both users and running scripts to access settings easily and quickly.
+
+# Basic Usage
+
+First, add `src/gs-sheets-menu.js` to your Google Scripts project.
+
+```javascript
+options = {
+         sheetName: "Settings",
+         sheetTitle: "Menu",
+         settingSpacing: 1
+     };
+
+const menu = SheetMenu(options,
+    TextSetting("Setting 1", "Value 1", "Example 1"),
+    TextSetting("Setting 2", "Value 2", "Example 2"),
+    CheckboxSetting("Setting 3", false, "Example 3"),
+    DropdownSetting("Setting 4", [1,2,3,4,5], "Example 4")
+);
+ ```
+
+This will produce the following menu on the sheet specified in the options.
+
+![image](https://user-images.githubusercontent.com/34400721/100282158-09f12b00-2f63-11eb-9279-04d4c237162d.png)
+
+The setting values can be retrieved from the menu as so
+
+```javascript
+var foo = menu.get("Setting 1"); // == "Value 1"
+
+var bar = menu.get("Setting 3"); // == false
+```
+
+## First run & menu creation
+
+The menu sheet will be created if it does not already exist the first time a `SettingMenu` object is instantiated.
+
+## Using ENUMs for setting names
+
+The names of the settings you want to appear on the menu may not be convenient to use in the code.
+
+The following example demonstrates a method that combines ease of programming with ease of use.
+
+```javascript
+var settings = {
+    FOO: "More descriptive name",
+    BAR: "Another descriptive name",
+}
+
+const menu = SheetMenu(options,
+    TextSetting(settings.FOO, "Value 1", "Description"),
+    TextSetting(settings.BAR, "Value 2", "Description")
+);
+
+var value = menu.get(settings.FOO);
+```
+
+# API Reference
+{{>main}}
+
+# Authors
+ - John Ellis - [GitHub](https://github.com/johnellis0) / [Portfolio](https://johnellis.dev)
+
+# License
+Released under [MIT](/LICENSE)
