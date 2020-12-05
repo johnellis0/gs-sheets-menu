@@ -109,8 +109,11 @@ function resetSettings(){
         var rows = this.sheet.getLastRow();
         var columns = this.sheet.getLastColumn()
 
-        this.sheet.deleteRows(rows+1, this.sheet.getMaxRows()-rows);
-        this.sheet.deleteColumns(columns+1, this.sheet.getMaxColumns()-columns);
+        if(rows !== this.sheet.getMaxRows())
+            this.sheet.deleteRows(rows+1, this.sheet.getMaxRows()-rows);
+
+        if(columns !== this.sheet.getMaxColumns())
+            this.sheet.deleteColumns(columns+1, this.sheet.getMaxColumns()-columns);
 
         this.sheet.getDataRange().protect().setWarningOnly(true);
 
