@@ -41,7 +41,7 @@ function SheetMenu(options, ...settings){
 
     this.settings = settings;
 
-    if(!SpreadsheetApp.getActiveSpreadsheet().getSheets().includes(this.options.sheetName))
+    if(SpreadsheetApp.getActiveSpreadsheet().getSheetByName(this.options.sheetName) === null)
         this.draw();
 }
 SheetMenu.prototype = {
