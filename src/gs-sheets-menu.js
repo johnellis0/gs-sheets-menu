@@ -47,6 +47,7 @@ function SheetMenu(options, ...settings){
 SheetMenu.prototype = {
     _structure: undefined,
     _sheet: undefined,
+    _cache: null,
 
     get structure(){
         if(this._structure !== undefined)
@@ -124,18 +125,40 @@ function resetSettings(){
     /**
      * Returns value of setting with `settingName`
      * @param {string} settingName Name of setting
+     * @param {boolean} reloadCache Whether to reload the cache from the values on the sheet
      * @returns {*} Value of setting from sheet menu
      * @example
-const menu = SheetMenu(options,
-    CheckboxSetting("FOO", false, "Example 3")
-);
+     const menu = SheetMenu(options,
+     CheckboxSetting("FOO", false, "Example 3")
+     );
 
-menu.get("FOO"); // Returns value of setting 'FOO'
+     menu.get("FOO"); // Returns value of setting 'FOO'
      */
-    get: function(settingName){
+    get: function(settingName, reloadCache=false){
+        if(reloadCache){
+            this.loadCache();
+            return this.cache[settingName];
+        }else{
+            return this.cache[settingName];
+        }
         // var setting = this.settings.find(s => s.name === settingName);
         var row = this.structure[settingName];
         return this.sheet.getRange(row, 2).getValue();
+    },
+
+    loadCache: function(){
+        this._cache = {};
+        var values = this.sheet.getRange(1, 2, this.sheet.getMaxRows(), 1).getValues().flat();
+
+        this.settings.forEach((setting) => {
+            this._cache[setting.name] = values[this.structure[setting.name]-1];
+        });
+    },
+
+    get cache(){
+        if(this._cache === null)
+            this.loadCache();
+        return this._cache;
     },
 
     /**
