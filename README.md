@@ -19,17 +19,17 @@ To install as a library directly in Google Scripts follow the below instructions
 
 ![image](https://user-images.githubusercontent.com/34400721/101265568-67456300-373f-11eb-862d-8d48479a1ebe.png)
 
-If you install like this you will need to prefix all the methods by whatever is in the **Identifier** box, with the default being SheetMenu.
+If you install like this you will need to prefix all the methods by whatever is in the **Identifier** box, with the default being SheetsMenu.
 
 ```javascript
-const menu = SheetMenu.SheetMenu(options,
-    SheetMenu.TextSetting("Setting 1", "Value 1", "Example 1"),
+const menu = SheetsMenu.SheetMenu(options,
+    SheetsMenu.TextSetting("Setting 1", "Value 1", "Example 1"),
 );
 ```
 
 ## Manually
 
-You can also copy the source file, `src/gs-sheets-menu.js` directly into your Scripts project.
+You can also copy the source file, `src/SheetsMenu.js` directly into your Scripts project.
 
 If you install via this method you do not have to prefix the methods with a module name, example:
 
@@ -41,7 +41,7 @@ const menu = SheetMenu(options,
 
 # Basic Usage
 
-First, add `src/gs-sheets-menu.js` to your Google Scripts project.
+First, add `src/SheetsMenu.js` to your Google Scripts project.
 
 ```javascript
 options = {
