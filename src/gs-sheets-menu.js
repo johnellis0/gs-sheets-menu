@@ -16,10 +16,10 @@
  *
  * @example
  options = {
-         sheetName: "Settings",
-         sheetTitle: "Menu",
-         settingSpacing: 1
-     };
+     sheetName: "Settings",
+     sheetTitle: "Menu",
+     settingSpacing: 1
+ };
 
  const menu = SheetMenu(options,
      TextSetting("Setting 1", "Value 1", "Example 1"),
