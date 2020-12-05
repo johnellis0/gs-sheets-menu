@@ -50,11 +50,11 @@ options = {
      settingSpacing: 1
  };
 
-const menu = SheetMenu(options,
-    TextSetting("Setting 1", "Value 1", "Example 1"),
-    TextSetting("Setting 2", "Value 2", "Example 2"),
-    CheckboxSetting("Setting 3", false, "Example 3"),
-    DropdownSetting("Setting 4", [1,2,3,4,5], "Example 4")
+const menu = SheetsMenu.SheetMenu(options,
+    SheetsMenu.TextSetting("Setting 1", "Value 1", "Example 1"),
+    SheetsMenu.TextSetting("Setting 2", "Value 2", "Example 2"),
+    SheetsMenu.CheckboxSetting("Setting 3", false, "Example 3"),
+    SheetsMenu.DropdownSetting("Setting 4", [1,2,3,4,5], "Example 4")
 );
  ```
 
@@ -82,9 +82,9 @@ var settings = {
     BAR: "Another descriptive name",
 }
 
-const menu = SheetMenu(options,
-    TextSetting(settings.FOO, "Value 1", "Description"),
-    TextSetting(settings.BAR, "Value 2", "Description")
+const menu = SheetsMenu.SheetMenu(options,
+    SheetsMenu.TextSetting(settings.FOO, "Value 1", "Description"),
+    SheetsMenu.TextSetting(settings.BAR, "Value 2", "Description")
 );
 
 var value = menu.get(settings.FOO);

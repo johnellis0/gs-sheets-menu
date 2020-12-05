@@ -21,11 +21,11 @@
      settingSpacing: 1
  };
 
- const menu = SheetMenu(options,
-     TextSetting("Setting 1", "Value 1", "Example 1"),
-     TextSetting("Setting 2", "Value 2", "Example 2"),
-     CheckboxSetting("Setting 3", false, "Example 3"),
-     DropdownSetting("Setting 4", [1,2,3,4,5], "Example 4")
+ const menu = SheetsMenu.SheetMenu(options,
+     SheetsMenu.TextSetting("Setting 1", "Value 1", "Example 1"),
+     SheetsMenu.TextSetting("Setting 2", "Value 2", "Example 2"),
+     SheetsMenu.CheckboxSetting("Setting 3", false, "Example 3"),
+     SheetsMenu.DropdownSetting("Setting 4", [1,2,3,4,5], "Example 4")
  );
  */
 function SheetMenu(options, ...settings){
@@ -86,7 +86,7 @@ SheetMenu.prototype = {
      * Only call this function yourself if you wish to re-draw the menu, eg. to reset all settings.
      *
      * @example
-const menu = SheetMenu(options, settings);
+const menu = SheetsMenu.SheetMenu(options, settings);
 
 function resetSettings(){
     menu.draw(); // Re-create menu with default settings
@@ -128,11 +128,11 @@ function resetSettings(){
      * @param {boolean} reloadCache Whether to reload the cache from the values on the sheet
      * @returns {*} Value of setting from sheet menu
      * @example
-     const menu = SheetMenu(options,
-     CheckboxSetting("FOO", false, "Example 3")
-     );
+ const menu = SheetsMenu.SheetMenu(options,
+     SheetsMenu.CheckboxSetting("FOO", false, "Example 3")
+ );
 
-     menu.get("FOO"); // Returns value of setting 'FOO'
+ menu.get("FOO"); // Returns value of setting 'FOO'
      */
     get: function(settingName, reloadCache=false){
         if(reloadCache){
@@ -166,11 +166,11 @@ function resetSettings(){
      * @returns {String[][]} Array of [Name, Value] pairs for all settings
      *
      * @example
-const menu = SheetMenu(options,
-    TextSetting("Setting 1", "Value 1", "Example 1"),
-    TextSetting("Setting 2", "Value 2", "Example 2"),
-    CheckboxSetting("Setting 3", false, "Example 3"),
-    DropdownSetting("Setting 4", [1,2,3,4,5], "Example 4")
+const menu = SheetsMenu.SheetMenu(options,
+     SheetsMenu.TextSetting("Setting 1", "Value 1", "Example 1"),
+     SheetsMenu.TextSetting("Setting 2", "Value 2", "Example 2"),
+     SheetsMenu.CheckboxSetting("Setting 3", false, "Example 3"),
+     SheetsMenu.DropdownSetting("Setting 4", [1,2,3,4,5], "Example 4")
 );
 
 var key_values = menu.getAll();

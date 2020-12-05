@@ -50,11 +50,11 @@ options = {
      settingSpacing: 1
  };
 
-const menu = SheetMenu(options,
-    TextSetting("Setting 1", "Value 1", "Example 1"),
-    TextSetting("Setting 2", "Value 2", "Example 2"),
-    CheckboxSetting("Setting 3", false, "Example 3"),
-    DropdownSetting("Setting 4", [1,2,3,4,5], "Example 4")
+const menu = SheetsMenu.SheetMenu(options,
+    SheetsMenu.TextSetting("Setting 1", "Value 1", "Example 1"),
+    SheetsMenu.TextSetting("Setting 2", "Value 2", "Example 2"),
+    SheetsMenu.CheckboxSetting("Setting 3", false, "Example 3"),
+    SheetsMenu.DropdownSetting("Setting 4", [1,2,3,4,5], "Example 4")
 );
  ```
 
@@ -82,9 +82,9 @@ var settings = {
     BAR: "Another descriptive name",
 }
 
-const menu = SheetMenu(options,
-    TextSetting(settings.FOO, "Value 1", "Description"),
-    TextSetting(settings.BAR, "Value 2", "Description")
+const menu = SheetsMenu.SheetMenu(options,
+    SheetsMenu.TextSetting(settings.FOO, "Value 1", "Description"),
+    SheetsMenu.TextSetting(settings.BAR, "Value 2", "Description")
 );
 
 var value = menu.get(settings.FOO);
@@ -140,11 +140,11 @@ options = {
      settingSpacing: 1
  };
 
- const menu = SheetMenu(options,
-     TextSetting("Setting 1", "Value 1", "Example 1"),
-     TextSetting("Setting 2", "Value 2", "Example 2"),
-     CheckboxSetting("Setting 3", false, "Example 3"),
-     DropdownSetting("Setting 4", [1,2,3,4,5], "Example 4")
+ const menu = SheetsMenu.SheetMenu(options,
+     SheetsMenu.TextSetting("Setting 1", "Value 1", "Example 1"),
+     SheetsMenu.TextSetting("Setting 2", "Value 2", "Example 2"),
+     SheetsMenu.CheckboxSetting("Setting 3", false, "Example 3"),
+     SheetsMenu.DropdownSetting("Setting 4", [1,2,3,4,5], "Example 4")
  );
 ```
 <a name="SheetMenu+draw"></a>
@@ -159,7 +159,7 @@ Only call this function yourself if you wish to re-draw the menu, eg. to reset a
 **Kind**: instance method of [<code>SheetMenu</code>](#SheetMenu)  
 **Example**  
 ```js
-const menu = SheetMenu(options, settings);
+const menu = SheetsMenu.SheetMenu(options, settings);
 
 function resetSettings(){
     menu.draw(); // Re-create menu with default settings
@@ -180,11 +180,11 @@ Returns value of setting with `settingName`
 
 **Example**  
 ```js
-const menu = SheetMenu(options,
-     CheckboxSetting("FOO", false, "Example 3")
-     );
+const menu = SheetsMenu.SheetMenu(options,
+     SheetsMenu.CheckboxSetting("FOO", false, "Example 3")
+ );
 
-     menu.get("FOO"); // Returns value of setting 'FOO'
+ menu.get("FOO"); // Returns value of setting 'FOO'
 ```
 <a name="SheetMenu+getAll"></a>
 
@@ -195,11 +195,11 @@ Get all settings & their values
 **Returns**: <code>Array.&lt;Array.&lt;String&gt;&gt;</code> - Array of [Name, Value] pairs for all settings  
 **Example**  
 ```js
-const menu = SheetMenu(options,
-    TextSetting("Setting 1", "Value 1", "Example 1"),
-    TextSetting("Setting 2", "Value 2", "Example 2"),
-    CheckboxSetting("Setting 3", false, "Example 3"),
-    DropdownSetting("Setting 4", [1,2,3,4,5], "Example 4")
+const menu = SheetsMenu.SheetMenu(options,
+     SheetsMenu.TextSetting("Setting 1", "Value 1", "Example 1"),
+     SheetsMenu.TextSetting("Setting 2", "Value 2", "Example 2"),
+     SheetsMenu.CheckboxSetting("Setting 3", false, "Example 3"),
+     SheetsMenu.DropdownSetting("Setting 4", [1,2,3,4,5], "Example 4")
 );
 
 var key_values = menu.getAll();
