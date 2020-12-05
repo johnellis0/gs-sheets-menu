@@ -6,6 +6,28 @@
  * Google Apps Script for Google Sheets that adds the ability to create a sheet based settings menu.
  */
 
+/**
+ * Create SheetMenu instance
+ *
+ * @param {object} options Optional options object
+ * @param {...Setting} settings List of Setting's as arguments. Can be TextSetting's, CheckboxSetting's, DropdownSetting's
+ * @returns {SheetMenu}
+ * @constructor
+ *
+ * @example
+ options = {
+         sheetName: "Settings",
+         sheetTitle: "Menu",
+         settingSpacing: 1
+     };
+
+ const menu = SheetMenu(options,
+     TextSetting("Setting 1", "Value 1", "Example 1"),
+     TextSetting("Setting 2", "Value 2", "Example 2"),
+     CheckboxSetting("Setting 3", false, "Example 3"),
+     DropdownSetting("Setting 4", [1,2,3,4,5], "Example 4")
+ );
+ */
 function SheetMenu(options, ...settings){
     if(!(this instanceof SheetMenu))
         return new SheetMenu(options, ...settings);
@@ -55,6 +77,20 @@ SheetMenu.prototype = {
         return this._sheet;
     },
 
+    /**
+     * Creates menu sheet & draws out menu, with the *default* setting values.
+     *
+     * The menu will automatically be drawn if it does not exist when the SheetMenu object is instantiated.
+     *
+     * Only call this function yourself if you wish to re-draw the menu, eg. to reset all settings.
+     *
+     * @example
+const menu = SheetMenu(options, settings);
+
+function resetSettings(){
+    menu.draw(); // Re-create menu with default settings
+}
+     */
     draw: function(){
         this.sheet.getRange(1,1,1,3).merge()
             .setValue(this.options.sheetTitle)
@@ -82,6 +118,17 @@ SheetMenu.prototype = {
         this.sheet.setColumnWidth(2, this.sheet.getColumnWidth(2) + 25);
     },
 
+    /**
+     * Returns value of setting with `settingName`
+     * @param {string} settingName Name of setting
+     * @returns {*} Value of setting from sheet menu
+     * @example
+const menu = SheetMenu(options,
+    CheckboxSetting("FOO", false, "Example 3")
+);
+
+menu.get("FOO"); // Returns value of setting 'FOO'
+     */
     get: function(settingName){
         // var setting = this.settings.find(s => s.name === settingName);
         var row = this.structure[settingName];
@@ -93,6 +140,16 @@ SheetMenu.prototype = {
     }
 }
 
+/**
+ * Superclass for all other Settings
+ * @param {string} name Name of setting
+ * @param {string} defaultValue Default value
+ * @param {string} description Displayed in the description column on the settings sheet
+ * @param {SettingTypes} settingType Type of setting
+ * @returns {TextSetting}
+ * @constructor
+ * @ignore
+ */
 function Setting(name, defaultValue, description, settingType){
     this.name = name;
     this.defaultValue = defaultValue;
@@ -122,6 +179,15 @@ Setting.prototype = {
     }
 };
 
+/**
+ * TextSetting allows any value to be entered and is displayed as a normal cell on the sheet menu.
+ * @param {string} name Name of setting
+ * @param {string} defaultValue Default value
+ * @param {string} description Displayed in the description column on the settings sheet
+ * @returns {TextSetting}
+ * @constructor
+ * @extends Setting
+ */
 function TextSetting(name, defaultValue, description=""){
     if(!(this instanceof TextSetting))
         return new TextSetting(...arguments);
@@ -130,6 +196,15 @@ function TextSetting(name, defaultValue, description=""){
 }
 TextSetting.prototype = Object.create(Setting.prototype);
 
+/**
+ * CheckboxSetting allows only true/false values and is displayed as a checkbox on the sheet menu.
+ * @param {string} name Name of setting
+ * @param {boolean} defaultValue Default value
+ * @param {string} description Displayed in the description column on the settings sheet
+ * @returns {CheckboxSetting}
+ * @constructor
+ * @extends Setting
+ */
 function CheckboxSetting(name, defaultValue=false, description=""){
     if(!(this instanceof CheckboxSetting))
         return new CheckboxSetting(...arguments);
@@ -143,6 +218,15 @@ CheckboxSetting.prototype.draw = function(range){
     range.getCell(1,2).insertCheckboxes();
 };
 
+/**
+ * DropdownSetting allows only certain values and is displayed as a cell with a dropdown on the sheet menu.
+ * @param {string} name Name of setting
+ * @param {string[]} possibleValues Array of available values. First value is taken as the default
+ * @param {string} description Displayed in the description column on the settings sheet
+ * @returns {DropdownSetting}
+ * @constructor
+ * @extends Setting
+ */
 function DropdownSetting(name, possibleValues, description=""){
     if(!(this instanceof DropdownSetting))
         return new DropdownSetting(...arguments);
@@ -164,9 +248,10 @@ DropdownSetting.prototype.draw = function(range){
 };
 
 /**
- * Enum for settings types. Used to determine how to display on menu / validate etc.
+ * Setting types ENUM.
  * @readonly
  * @enum {number}
+ * @ignore
  */
 const SettingTypes = Object.freeze({
     TEXT: 1,
